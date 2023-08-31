@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "cross-env NODE_ENV=development ts-node ./database/migrateToLatest.ts",
-    "generate-db-types": "cross-env DATABASE_URL=postgres://default:dmGQ7Cq4tThM@ep-falling-mountain-47196823-pooler.eu-central-1.postgres.vercel-storage.com/verceldb?sslmode=require kanel"
+    "migrate-dev": "dotenv -e .env.development.local ts-node ./database/migrateToLatest.ts",
+    "generate-db-types": "dotenv -e .env.development.local kanel"
   },
   "dependencies": {
     "@types/node": "20.5.6",
@@ -20,6 +20,7 @@
     "autoprefixer": "10.4.15",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "kysely": "^0.26.3",

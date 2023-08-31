@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: kwizz
+      POSTGRES_USER: kwizz
+    ports:
+      - "5432:5432"
