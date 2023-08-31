@@ -2,18 +2,15 @@ import * as path from 'path'
 import {promises as fs} from 'fs'
 import {FileMigrationProvider, Kysely, Migrator, PostgresDialect,} from 'kysely'
 import {Pool} from "pg";
-import dotenv from "dotenv";
 import Database from "@/database/models/Database";
 
 async function migrateToLatest() {
-    if (process.env.NODE_ENV === 'development') {
-        dotenv.config({path: path.resolve(process.cwd(), '.env.development.local')})
-    }
+    const sslMode = process.env.NODE_ENV !== "development" ? "?sslmode=require" : ""
 
     const db = new Kysely<Database>({
         dialect: new PostgresDialect({
             pool: new Pool({
-                connectionString: process.env.POSTGRES_URL + "?sslmode=require"
+                connectionString: process.env.POSTGRES_URL + sslMode
             }),
         }),
     })
