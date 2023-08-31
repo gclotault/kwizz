@@ -2,8 +2,8 @@ import * as path from 'path'
 import {promises as fs} from 'fs'
 import {FileMigrationProvider, Kysely, Migrator, PostgresDialect,} from 'kysely'
 import {Pool} from "pg";
-import {Database} from "./config";
 import dotenv from "dotenv";
+import Database from "@/database/models/Database";
 
 async function migrateToLatest() {
     if (process.env.NODE_ENV === 'development') {
@@ -27,6 +27,7 @@ async function migrateToLatest() {
             migrationFolder: path.join(__dirname, './migrations'),
         }),
     })
+
 
     const {error, results} = await migrator.migrateToLatest()
 

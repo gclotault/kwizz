@@ -1,6 +1,4 @@
 import {createKysely} from "@vercel/postgres-kysely";
-
-export interface Database {
-}
+import Database from "@/database/models/Database";
 
 export const db = createKysely<Database>();
