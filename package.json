@@ -7,26 +7,25 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate-dev": "dotenv -e .env.development.local ts-node ./database/migrateToLatest.ts",
-    "generate-db-types": "dotenv -e .env.development.local kanel"
+    "prisma:db-pull": "dotenv -e .env.development.local npx prisma db pull",
+    "prisma:migrate-dev": "dotenv -e .env.development.local npx prisma migrate dev",
+    "prisma:seed": "dotenv -e .env.development.local npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.2.0",
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@vercel/analytics": "^1.0.2",
-    "@vercel/postgres": "^0.4.1",
-    "@vercel/postgres-kysely": "^0.4.1",
     "autoprefixer": "10.4.15",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
-    "kysely": "^0.26.3",
     "next": "13.4.19",
     "next-auth": "^4.23.1",
-    "pg": "^8.11.3",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,7 +34,6 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "kanel": "^3.5.3",
-    "kanel-kysely": "^0.2.0"
+    "prisma": "^5.2.0"
   }
 }
