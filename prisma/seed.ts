@@ -11,8 +11,8 @@ async function main() {
     const hash = (await scrypt('KwizzAdmin', salt, 32)) as Buffer;
     const adminPassword = salt + '.' + hash.toString('hex');
 
-    const admin = await prisma.user.upsert({
-        where: { email: 'alice@prisma.io' },
+    await prisma.user.upsert({
+        where: { email: 'admin@kwizz.com' },
         update: {},
         create: {
             email: 'admin@kwizz.com',
