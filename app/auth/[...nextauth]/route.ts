@@ -2,7 +2,7 @@ import NextAuth, {AuthOptions} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import {promisify} from "util";
 import {scrypt as _scrypt} from "crypto";
-import {getUserByEmail} from "@/database/repositories/userRepository";
+import {getUserByEmail} from "@/lib/services/userService";
 
 const scrypt = promisify(_scrypt);
 
@@ -37,6 +37,9 @@ export const authOptions: AuthOptions = {
                 try {
 
                     const user = await getUserByEmail(email);
+                    if(!user) {
+                        return null
+                    }
                     const [salt, storedHash] = user.password.split('.');
 
                     const hash = (await scrypt(password, salt, 32)) as Buffer;

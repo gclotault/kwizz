@@ -7,10 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate-dev": "dotenv -e .env.development.local ts-node ./database/migrateToLatest.ts",
-    "generate-db-types": "dotenv -e .env.development.local kanel"
+    "prisma:db-pull": "dotenv -e .env.development.local npx prisma db pull",
+    "prisma:migrate-dev": "dotenv -e .env.development.local npx prisma migrate dev",
+    "prisma:seed": "dotenv -e .env.development.local npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.2.0",
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -37,6 +42,7 @@
   },
   "devDependencies": {
     "kanel": "^3.5.3",
-    "kanel-kysely": "^0.2.0"
+    "kanel-kysely": "^0.2.0",
+    "prisma": "^5.2.0"
   }
 }
