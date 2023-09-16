@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { getUserById } from '@/lib/services/userService';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { NextFetchEvent, NextRequest } from 'next/server';
-import { User } from '.prisma/client';
+import { User } from '@/prisma/generated/client';
 import { NextHandler } from 'next-connect';
 
 export type NextRequestWithOptionalUser = NextRequest & { user?: User };
