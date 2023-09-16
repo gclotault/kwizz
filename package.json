@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && prisma migrate",
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:db-pull": "dotenv -e .env.development.local npx prisma db pull",
