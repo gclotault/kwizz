@@ -3,7 +3,7 @@
 import EditThemeForm from '@/components/forms/EditThemeForm';
 import { Typography } from '@mui/material';
 import useSWR from 'swr';
-import { Theme } from '@prisma/client';
+import { Theme } from '@/prisma/generated/client';
 
 type EditThemePageProps = { params: { id: string } };
 
