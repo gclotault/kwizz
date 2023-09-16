@@ -1,6 +1,6 @@
 'use client';
 
-import { Theme } from '@/prisma/generated/client';
+import { Theme } from '@prisma/client';
 import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@/prisma/generated/client';
+import { PrismaClient } from '@prisma/client';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 

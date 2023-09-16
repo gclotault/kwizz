@@ -1,6 +1,6 @@
 'use client';
 
-import { Theme } from '@/prisma/generated/client';
+import { Theme } from '@prisma/client';
 import { Button, Link, List, ListItem, Typography } from '@mui/material';
 import { useConfirm } from 'material-ui-confirm';
 import useSWR, { mutate } from 'swr';

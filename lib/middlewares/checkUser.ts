@@ -1,5 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
-import { User } from '@/prisma/generated/client';
+import { User } from '@prisma/client';
 import { NextHandler } from 'next-connect';
 import { NextRequestWithOptionalUser } from '@/lib/middlewares/getUser';
 

@@ -1,5 +1,5 @@
 import { DefaultSession } from 'next-auth';
-import { User as DbUser } from '@/prisma/generated/client';
+import { User as DbUser } from '@prisma/client';
 import { JWT as DefaultJWT } from 'next-auth/jwt';
 
 declare module 'next-auth' {
