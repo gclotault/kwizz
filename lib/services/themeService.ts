@@ -3,9 +3,14 @@ import {
   AddThemeDto,
   EditThemeDto,
 } from '@/lib/validators/dto/themeDtoValidator';
+import { Prisma } from '@prisma/client';
 
-export async function getThemeById(id: number) {
-  return prisma.theme.findUnique({ where: { id } });
+type GetThemByIdOptions = {
+  includeQuestions?: boolean;
+};
+export async function getThemeById(id: number, options?: GetThemByIdOptions) {
+  const include = options?.includeQuestions ? { questions: true } : {};
+  return prisma.theme.findUnique({ where: { id }, include });
 }
 
 export async function getThemesByUserId(userId: number) {
@@ -26,3 +31,12 @@ export async function editTheme(editThemeDto: EditThemeDto) {
     where: { id: editThemeDto.id },
   });
 }
+
+// Extended theme types
+const themeWithQuestions = Prisma.validator<Prisma.ThemeDefaultArgs>()({
+  include: { questions: true },
+});
+
+export type ThemeWithQuestions = Prisma.ThemeGetPayload<
+  typeof themeWithQuestions
+>;

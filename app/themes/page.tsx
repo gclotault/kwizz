@@ -33,7 +33,9 @@ export default function ThemesPage() {
       <List>
         {themes?.map((theme) => (
           <ListItem key={theme.id}>
-            <Typography variant='body1'>{theme.name}</Typography>
+            <Link href={`/themes/${theme.id}/questions`}>
+              <Typography variant='body1'>{theme.name}</Typography>
+            </Link>
             <Link href={`/themes/edit/${theme.id}`}>
               <Button>Editer</Button>
             </Link>{' '}

@@ -4,7 +4,6 @@ import {
   addTheme,
   deleteThemeById,
   editTheme,
-  getThemeById,
   getThemesByUserId,
 } from '@/lib/services/themeService';
 import { checkUser, NextRequestWithUser } from '@/lib/middlewares/checkUser';
@@ -21,10 +20,11 @@ import {
   EditThemeDto,
   EditThemeDtoSchema,
 } from '@/lib/validators/dto/themeDtoValidator';
+import { checkThemePermission } from '@/lib/utils/api/checkThemePermission';
 
 // GET
-async function get(request: NextRequestWithUser) {
-  const themes = await getThemesByUserId(request.user.id);
+async function get(req: NextRequestWithUser) {
+  const themes = await getThemesByUserId(req.user.id);
   return NextResponse.json(themes);
 }
 
@@ -35,9 +35,8 @@ export async function GET(request: NextRequestWithUser, ctx: NextFetchEvent) {
 }
 
 // POST
-async function post(request: NextRequestWithUserAndBody<AddThemeDto>) {
-  const { data } = request;
-  const newTheme = await addTheme(data, request.user.id);
+async function post(req: NextRequestWithUserAndBody<AddThemeDto>) {
+  const newTheme = await addTheme(req.data, req.user.id);
 
   return NextResponse.json(newTheme);
 }
@@ -55,18 +54,14 @@ export async function POST(
 }
 
 // PUT
-async function put(request: NextRequestWithUserAndBody<EditThemeDto>) {
-  const { data } = request;
-  const theme = await getThemeById(data.id);
-  if (!theme || theme.userId !== request.user.id) {
-    return NextResponse.json(
-      {
-        error: { message: 'Invalid theme' },
-      },
-      { status: 400 }
-    );
-  }
-  const newTheme = await editTheme(data);
+async function put(req: NextRequestWithUserAndBody<EditThemeDto>) {
+  const { isValid, body, init } = await checkThemePermission(
+    req.data.id,
+    req.user.id
+  );
+  if (!isValid) return NextResponse.json(body, init);
+
+  const newTheme = await editTheme(req.data);
 
   return NextResponse.json(newTheme);
 }
@@ -84,20 +79,16 @@ export async function PUT(
 }
 
 // DELETE
-async function del(request: NextRequestWithUserAndBody<DeleteThemeDto>) {
-  const { data } = request;
-  const theme = await getThemeById(data.id);
-  if (!theme || theme.userId !== request.user.id) {
-    return NextResponse.json(
-      {
-        error: { message: 'Invalid theme' },
-      },
-      { status: 400 }
-    );
-  }
-  await deleteThemeById(data.id);
+async function del(req: NextRequestWithUserAndBody<DeleteThemeDto>) {
+  const { isValid, body, init } = await checkThemePermission(
+    req.data.id,
+    req.user.id
+  );
+  if (!isValid) return NextResponse.json(body, init);
 
-  // NextReponse does not handle 204 status code, so we use the Reponse object instead
+  await deleteThemeById(req.data.id);
+
+  // NextResponse does not handle 204 status code, so we use the Response object instead
   // https://github.com/vercel/next.js/discussions/51475
   return new Response(null, { status: 204 });
 }
