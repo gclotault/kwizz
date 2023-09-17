@@ -29,16 +29,15 @@ export default function EditThemeForm({ theme }: EditThemeFormProps) {
         await axios.post<Theme>('/api/themes', {
           name,
         } as AddThemeDto);
-        mutate('/api/themes');
         break;
       case ModificationTypeEnum.enum.edit:
         await axios.put<Theme>('/api/themes', {
           id,
           name,
         } as EditThemeDto);
-        mutate('/api/themes');
         break;
     }
+    mutate('/api/themes');
     router.push('/themes');
   };
 

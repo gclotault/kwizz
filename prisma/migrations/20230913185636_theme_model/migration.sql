@@ -9,3 +9,6 @@ CREATE TABLE "Theme" (
     CONSTRAINT "Theme_pkey" PRIMARY KEY ("id"),
     CONSTRAINT "Theme_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- CreateIndex
+CREATE INDEX "Theme_userId_idx" ON "Theme"("userId");

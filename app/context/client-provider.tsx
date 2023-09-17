@@ -5,6 +5,8 @@ import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
 import { SWRConfig } from 'swr';
 import { fetcher } from '@/lib/fetcher';
+import { ThemeProvider } from '@mui/material';
+import theme from '@/lib/theme';
 
 export default function Provider({
   children,
@@ -26,7 +28,9 @@ export default function Provider({
         }}
       >
         <SWRConfig value={{ fetcher: fetcher }}>
-          <SnackbarProvider>{children}</SnackbarProvider>
+          <ThemeProvider theme={theme}>
+            <SnackbarProvider>{children}</SnackbarProvider>
+          </ThemeProvider>
         </SWRConfig>
       </ConfirmProvider>
     </SessionProvider>

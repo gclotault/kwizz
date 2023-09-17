@@ -5,10 +5,10 @@ import { Typography } from '@mui/material';
 import useSWR from 'swr';
 import { Theme } from '@prisma/client';
 
-type EditThemePageProps = { params: { id: string } };
+type EditThemePageProps = { params: { themeId: string } };
 
 export default function EditThemePage({ params }: EditThemePageProps) {
-  const themeId = parseInt(params.id);
+  const themeId = parseInt(params.themeId);
   if (!isFinite(themeId)) {
     throw new Error('Invalid parameter');
   }
@@ -17,7 +17,7 @@ export default function EditThemePage({ params }: EditThemePageProps) {
   return (
     theme && (
       <>
-        <Typography variant='h5'>{`Modification du thème ${theme.name}`}</Typography>
+        <Typography variant='h2'>{`Modification du thème ${theme.name}`}</Typography>
         <EditThemeForm theme={theme} />
       </>
     )

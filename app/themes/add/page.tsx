@@ -1,10 +1,10 @@
 import EditThemeForm from '@/components/forms/EditThemeForm';
 import { Typography } from '@mui/material';
 
-export default function EditThemePage() {
+export default function AddThemePage() {
   return (
     <>
-      <Typography variant='h5'>{`Ajout d'un thème`}</Typography>
+      <Typography variant='h2'>{`Ajout d'un thème`}</Typography>
       <EditThemeForm />
     </>
   );
